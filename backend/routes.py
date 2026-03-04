@@ -10,7 +10,7 @@ def registrar_credito():
     data = request.get_json()
 
     # Validación básica de datos
-    campos = ['nombre_cliente', 'cedula', 'valor', 'tasa_interes', 'plazo_meses' 'comercial']
+    campos = ['nombre_cliente', 'cedula', 'valor', 'tasa_interes', 'plazo_meses', 'comercial']
     for campo in campos:
         if campo not in data:
             return jsonify({"error": f"Falta el campo '{campo}'"}), 400
@@ -56,17 +56,17 @@ def registrar_credito():
 def consultar_credito():
 
     # Parametros desde la URL
-    nombre_cliente = request.args.get('nombre_cliente')
-    cedula = request.args.get('cedula')
-    comercial = request.args.get('comercial')
-    orden = request.args.get('orden', 'fecha_creacion')
+    nombre_cliente = request.args.get('nombre_cliente', '')
+    cedula = request.args.get('cedula', '')
+    comercial = request.args.get('comercial', '')
+    orden = request.args.get('orden', 'fecha_registro')
     direccion = request.args.get('direccion', 'desc')
 
     # Permitir columnas validas
-    columnas_validas  = ["fecha_creacion", "valor"]
+    columnas_validas  = ["fecha_registro", "valor"]
     direcciones_validas = ["ASC", "DESC"]
     if orden not in columnas_validas:
-        orden = "fecha_creacion"
+        orden = "fecha_registro"
     if direccion not in direcciones_validas:
         direccion = "DESC"
 
