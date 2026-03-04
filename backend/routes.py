@@ -1,3 +1,5 @@
+from datetime import datetime
+
 from flask import Blueprint, jsonify, request
 from database import get_connection
 from email_worker import send_email
@@ -12,8 +14,28 @@ def registrar_credito():
     # Validación básica de datos
     campos = ['nombre_cliente', 'cedula', 'valor', 'tasa_interes', 'plazo_meses', 'comercial']
     for campo in campos:
-        if campo not in data:
+        if campo not in data or str(data[campo]).strip() == '':
             return jsonify({"error": f"Falta el campo '{campo}'"}), 400
+        
+    # Validación de tipos y rangos
+    try:
+        valor        = float(data['valor'])
+        tasa_interes = float(data['tasa_interes'])
+        plazo_meses  = int(data['plazo_meses'])
+    except ValueError:
+        return jsonify({"error": "Valor, tasa de interés y plazo deben ser números"}), 400
+
+    if valor <= 0:
+        return jsonify({"error": "El valor del crédito debe ser mayor a 0"}), 400
+
+    if tasa_interes <= 0 or tasa_interes > 100:
+        return jsonify({"error": "La tasa de interés debe estar entre 0 y 100"}), 400
+
+    if plazo_meses <= 0:
+        return jsonify({"error": "El plazo en meses debe ser mayor a 0"}), 400
+
+    if len(str(data['cedula']).strip()) < 5:
+        return jsonify({"error": "La cédula debe tener al menos 5 caracteres"}), 400
         
     try:
 
@@ -42,7 +64,7 @@ def registrar_credito():
             nombre_cliente=data["nombre_cliente"],
             valor=data["valor"],
             comercial=data["comercial"],
-            fecha= "Ahora mismo"
+            fecha= datetime.now().strftime("%Y-%m-%d %H:%M:%S")
         )
 
         return jsonify({"mensaje": "Crédito registrado exitosamente", "id": nuevo_id}), 201
