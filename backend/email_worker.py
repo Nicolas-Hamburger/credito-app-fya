@@ -21,7 +21,7 @@ def send_email(nombre_cliente, valor, comercial, fecha):
             Se ha registrado un nuevo crédito:
 
             Cliente:    {nombre_cliente}
-            Valor:      ${valor:,.2f}
+            Valor:      ${float(valor):,.2f}
             Comercial:  {comercial}
             Fecha:      {fecha}
             """
