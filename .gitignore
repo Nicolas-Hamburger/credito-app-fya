@@ -1,0 +1,10 @@
+# Ignore the virtual environment directory for the backend
+backend/venv
+backend/__pycache__/
+backend/*.pyc
+backend/.env
+
+# Ignore the virtual environment directory for the frontend
+frontend/node_modules/
+frontend/build/
+frontend/.env
