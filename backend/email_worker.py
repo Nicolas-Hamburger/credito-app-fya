@@ -13,8 +13,8 @@ def send_email(nombre_cliente, valor, comercial, fecha):
         try:
             msg = MIMEMultipart()
             msg["From"]    = os.getenv("MAIL_USER")
-            # msg["To"]      = "fyasocialcapital@gmail.com"
-            msg["To"]      = "nicolashamburger10@gmail.com"
+            msg["To"]      = "fyasocialcapital@gmail.com"
+            # msg["To"]      = "nicolas132331@gmail.com"
             msg["Subject"] = f"Nuevo crédito registrado - {nombre_cliente}"
 
             cuerpo = f"""
