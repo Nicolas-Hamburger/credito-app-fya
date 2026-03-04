@@ -74,7 +74,7 @@ export default function RegisterPage() {
               value={form[campo.name]}
               onChange={handleChange}
               required
-              className="border border-gray-300 rounded-lg px-4 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-[#1a4731]"
+              className="border border-gray-300 rounded-lg px-4 py-2 text-sm text-gray-900 focus:outline-none focus:ring-2 focus:ring-[#1a4731]"
             />
           </div>
         ))}
